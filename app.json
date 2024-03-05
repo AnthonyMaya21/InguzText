@@ -2,7 +2,7 @@
   "expo": {
     "name": "inguztest",
     "slug": "inguztest",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -14,8 +14,16 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+   
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.inguz.test",
+      "buildNumber": "1.0.1",
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": ["fetch"],
+        "NSCameraUsageDescription": "This app uses the camera for XYZ feature.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library for ABC functionality."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +33,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b5825925-76f6-44b4-a869-021f52059344"
+      }
+    },
+    "owner": "gusapc-inguz"
   }
 }
