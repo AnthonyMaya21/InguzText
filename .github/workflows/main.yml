@@ -50,7 +50,8 @@ jobs:
           expo-cache: true
 
       - name: Build iOS App
-        run: expo build:ios --non-interactive
+        run: npm install -g eas-cli
+             eas build -p ios https://docs.expo.dev/build/setup/ 
         env:
           EXPO_APPLE_ID: ${{ secrets.YOUR_APPLE_ACCOUNT_ID }}
           EXPO_APPLE_PASSWORD: ${{ secrets.YOUR_APPLE_ACCOUNT_PASSWORD }}
