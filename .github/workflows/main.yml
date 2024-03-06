@@ -23,7 +23,11 @@ jobs:
         
       - name: Install Expo CLI
         run: npm install -g expo-cli
-         npm install -g eas-cli  
+         npm install -g eas-cli
+         
+      - name: Log in to Expo
+        run: |
+          expo login -u ${{ secrets.YOUR_EXPO_USER }}  -p ${{ secrets.YOUR_EXPO_PASSWORD }}
 
       - name: Build IPA
         run: eas build -p ios
@@ -52,8 +56,4 @@ jobs:
           echo "EXPO_APPLE_USERNAME=${{ secrets.YOUR_APPLE_ACCOUNT_ID }}" >> $GITHUB_ENV
           echo "EXPO_APPLE_PASSWORD=${{ secrets.YOUR_APPLE_ACCOUNT_PASSWORD }}" >> $GITHUB_ENV
 
-      - name: Log in to Expo
-        run: |
-          expo login -u ${{ secrets.YOUR_EXPO_USER }}  -p ${{ secrets.YOUR_EXPO_PASSWORD }}
-
-    
+  
