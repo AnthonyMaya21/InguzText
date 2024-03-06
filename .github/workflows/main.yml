@@ -1,69 +1,55 @@
-# Just place this file in your repo under the .github/workflows folder.
-#agrego otro comentario
-
-name: Deploy to Testfligh
+name: Build and Deploy
 
 on:
- push:
+  push:
     branches:
-      - master
+      - main
+
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Check if PR was merged
-        if: github.event.pull_request.merged
-        run: echo "PR was merged."
-
-      - uses: actions/setup-node@v1
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.YOUR_NPM_TOKEN }}
 
-      - name: Setup Github Credentials
+      - name: Build IPA
+        run: expo build:ios --non-interactive
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ipa
+          path: ./ios/build/*.ipa
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download IPA
+        uses: actions/download-artifact@v2
+        with:
+          name: ipa
+          path: ./ipa
+
+      - name: Install Expo CLI
+        run: npm install -g expo-cli
+
+      - name: Set Apple account credentials
         run: |
-          git config user.name $GITHUB_ACTOR
-          git config user.email "gh-actions-${GITHUB_ACTOR}@github.com"
+          echo "EXPO_APPLE_USERNAME=${{ secrets.YOUR_APPLE_ACCOUNT_ID }}" >> $GITHUB_ENV
+          echo "EXPO_APPLE_PASSWORD=${{ secrets.YOUR_APPLE_ACCOUNT_PASSWORD }}" >> $GITHUB_ENV
 
-      #- name: Bump Version Numbers
-       # run: npm install --save-dev release; npm run release
-       # env:
-        #  NPM_AUTH_TOKEN: ${{ secrets.YOUR_NPM_TOKEN }}
+      - name: Log in to Expo
+        run: |
+          expo login -u ${{ secrets.YOUR_EXPO_USER }}  -p ${{ secrets.YOUR_EXPO_PASSWORD }}
 
-      - name: Push Changelog
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.YOUR_GITHUB_TOKEN }}
-          tags: true
-
-      - uses: expo/expo-github-action@v5
-        with:
-          expo-packager: npm
-          expo-username: "${{ secrets.YOUR_EXPO_USER }}"
-          expo-password: "${{ secrets.YOUR_EXPO_PASSWORD }}"
-          expo-cache: true
-
-      - name: Build iOS App
-        run: npm install -g eas-cli;
-             eas build -p ios
-        env:
-          EXPO_APPLE_ID: ${{ secrets.YOUR_APPLE_ACCOUNT_ID }}
-          EXPO_APPLE_PASSWORD: ${{ secrets.YOUR_APPLE_ACCOUNT_PASSWORD }}
-                 
-      - name: Check IPA status
-        run: expo build:status
-
-      - name: Download Artifact from expo
-        run: mkdir build_artifacts; export EXPO_ARTIFACT_URL=$(expo url:ipa); curl -o ./build_artifacts/$(basename $EXPO_ARTIFACT_URL) $EXPO_ARTIFACT_URL
-
-      - name: Upload Artifact to Testflight
-        run: xcrun altool --upload-app --type ios --file ./build_artifacts/$(basename $(expo url:ipa)) --username $APPLE_USER_NAME --password $APPLE_APP_SPECIFIC_PASSWORD
-        env:
-          APPLE_USER_NAME: ${{ secrets.YOUR_APPLE_ACCOUNT_ID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.YOUR_APP_SPECIFIC_PASSWORD }}
+    
