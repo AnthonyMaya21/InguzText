@@ -50,9 +50,7 @@ jobs:
           expo-cache: true
 
       - name: Build iOS App
-        run: nvm install 16
-            nvm use 16 
-            npm install -g eas-cli
+        run: npm install -g eas-cli
         env:
           EXPO_APPLE_ID: ${{ secrets.YOUR_APPLE_ACCOUNT_ID }}
           EXPO_APPLE_PASSWORD: ${{ secrets.YOUR_APPLE_ACCOUNT_PASSWORD }}
