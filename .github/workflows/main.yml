@@ -32,7 +32,7 @@ jobs:
           git config user.email "gh-actions-${GITHUB_ACTOR}@github.com"
 
       - name: Bump Version Numbers
-        run: npm run release
+        run: npm install --save-dev release; npm run release
         env:
           NPM_AUTH_TOKEN: ${{ secrets.YOUR_NPM_TOKEN }}
 
