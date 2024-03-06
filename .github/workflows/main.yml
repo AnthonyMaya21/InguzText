@@ -6,8 +6,7 @@ name: Deploy to Testflight
 on:
  push:
     branches:
-      - main
-      - test
+      - master
 jobs:
   build:
     runs-on: macos-latest
