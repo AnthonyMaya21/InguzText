@@ -1,5 +1,4 @@
 # Just place this file in your repo under the .github/workflows folder. 
-# You set all of the secrets in the setting of the repo
 
 name: Deploy to Testflight
 
