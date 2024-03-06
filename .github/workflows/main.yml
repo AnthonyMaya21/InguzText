@@ -23,7 +23,8 @@ jobs:
         
       - name: Install Expo CLI
         run: npm install -g expo-cli
-         npm install -g eas-cli
+      - name: Install Expo CLI 
+        run : npm install -g eas-cli
          
       - name: Set Expo account credentials
         run: |
@@ -34,7 +35,7 @@ jobs:
         run: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
 
       - name: Build IPA
-        run: eas build -p ios
+        run: expo-cli build:ios
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
