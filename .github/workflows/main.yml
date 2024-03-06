@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 17
 
       - name: Install dependencies
         run: npm install -g npm@7.24.0
@@ -25,9 +25,13 @@ jobs:
         run: npm install -g expo-cli
          npm install -g eas-cli
          
-      - name: Log in to Expo
+      - name: Set Expo account credentials
         run: |
-          expo login -u ${{ secrets.YOUR_EXPO_USER }}  -p ${{ secrets.YOUR_EXPO_PASSWORD }}
+          echo "EXPO_USERNAME=${{ secrets.YOUR_EXPO_USER }}" >> $GITHUB_ENV
+          echo "EXPO_PASSWORD=${{ secrets.YOUR_EXPO_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Log in to Expo
+        run: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
 
       - name: Build IPA
         run: eas build -p ios
