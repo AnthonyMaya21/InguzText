@@ -3,9 +3,10 @@
 name: Deploy to Testflight
 
 on:
-  pull_request:
-    types: closed
-
+ push:
+    branches:
+      - main
+      - test
 jobs:
   build:
     runs-on: macos-latest
