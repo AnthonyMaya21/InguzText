@@ -31,10 +31,10 @@ jobs:
           git config user.name $GITHUB_ACTOR
           git config user.email "gh-actions-${GITHUB_ACTOR}@github.com"
 
-      - name: Bump Version Numbers
-        run: npm install --save-dev release; npm run release
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.YOUR_NPM_TOKEN }}
+      #- name: Bump Version Numbers
+       # run: npm install --save-dev release; npm run release
+       # env:
+        #  NPM_AUTH_TOKEN: ${{ secrets.YOUR_NPM_TOKEN }}
 
       - name: Push Changelog
         uses: ad-m/github-push-action@master
