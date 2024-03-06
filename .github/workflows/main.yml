@@ -15,7 +15,7 @@ on:
 jobs:
   build:
   
-    # You got to run it on the mac in order to get xCode and the xcrun command
+    # You got to run it on the mac in order to get xCode and the xcrun
 
     runs-on: macos-latest
     steps:
