@@ -30,7 +30,18 @@ jobs:
         run: |
           echo "EXPO_USERNAME=${{ secrets.YOUR_EXPO_USER }}" >> $GITHUB_ENV
           echo "EXPO_PASSWORD=${{ secrets.YOUR_EXPO_PASSWORD }}" >> $GITHUB_ENV
-
+      - name: Setup Expo
+              #indica que este paso utiliza la acción expo-github-action en su versión 7. 
+        uses: expo/expo-github-action@v7
+              #especifica los parámetros que se pasarán a la acción expo-github-action.
+        with:
+                #indica que se debe configurar la última versión de Expo.
+                expo-version: latest
+                #indica que se debe configurar la última versión de eas.
+                eas-version: latest
+                #pasa el valor de la variable secreta EXPO_TOKEN como token para la acción.
+                #Este token se utiliza para autenticarse con Expo.
+                token: ${{ secrets.EXPO_TOKEN }}
       #- name: Log in to Expo
         #run: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       #  run: expo login -u gusapc-inguz -p P5$$g60rd
