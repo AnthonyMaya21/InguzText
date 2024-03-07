@@ -48,7 +48,8 @@ jobs:
       #  run: expo login -u gusapc-inguz -p P5$$g60rd
 
       - name: Build IPA
-        run: expo-cli build:ios
+        run:  npm install -g eas-cli
+              eas build -p ios 
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
