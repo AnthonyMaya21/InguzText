@@ -23,9 +23,10 @@ jobs:
         
       - name: Install Expo CLI
         run: npm install -g expo-cli
-      - name: Install Expo CLI 
-        run : npm install -g eas-cli
-         
+
+      - name: Install Expo CLI
+        run: yarn add expo
+        
       - name: Set Expo account credentials
         run: |
           echo "EXPO_USERNAME=${{ secrets.YOUR_EXPO_USER }}" >> $GITHUB_ENV
