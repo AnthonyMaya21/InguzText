@@ -53,8 +53,8 @@ jobs:
 
       - name: Build IPA
         run:  npm install -g eas-cli
-              eas build -p ios 
-
+              eas build --platform ios --auto --non-interactive
+ 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
