@@ -31,9 +31,9 @@ jobs:
           echo "EXPO_USERNAME=${{ secrets.YOUR_EXPO_USER }}" >> $GITHUB_ENV
           echo "EXPO_PASSWORD=${{ secrets.YOUR_EXPO_PASSWORD }}" >> $GITHUB_ENV
 
-      - name: Log in to Expo
+      #- name: Log in to Expo
         #run: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        run: expo login -u gusapc-inguz -p P5$$g60rd
+      #  run: expo login -u gusapc-inguz -p P5$$g60rd
 
       - name: Build IPA
         run: expo-cli build:ios
