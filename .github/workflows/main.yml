@@ -52,8 +52,9 @@ jobs:
       #  run: expo login -u gusapc-inguz -p P5$$g60rd
 
       - name: Build IPA
-        run:  npm install -g eas-cli
-              eas build --platform ios --auto --non-interactive
+        run: | 
+          npm install -g eas-cli
+          eas build --platform ios --auto --non-interactive
  
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
@@ -83,4 +84,3 @@ jobs:
           echo "EXPO_APPLE_USERNAME=${{ secrets.YOUR_APPLE_ACCOUNT_ID }}" >> $GITHUB_ENV
           echo "EXPO_APPLE_PASSWORD=${{ secrets.YOUR_APPLE_ACCOUNT_PASSWORD }}" >> $GITHUB_ENV
 
-  
