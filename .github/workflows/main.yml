@@ -22,8 +22,9 @@ jobs:
         run: npm install -g npm@latest
 
       - name: instalarliberias
-        run: npm uninstall wrench
-             npm install fs-extra
+        run: |
+          npm uninstall wrench
+          npm install fs-extra
 
       - name: Install Expo CLI
         run: npm install -g expo-cli
@@ -47,40 +48,10 @@ jobs:
                 #pasa el valor de la variable secreta EXPO_TOKEN como token para la acción.
                 #Este token se utiliza para autenticarse con Expo.
                 token: ${{ secrets.EXPO_TOKEN }}
-      #- name: Log in to Expo
-        #run: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      #  run: expo login -u gusapc-inguz -p P5$$g60rd
+    
 
       - name: Build IPA
         run: | 
           npm install -g eas-cli
           eas build --platform ios --non-interactive
  
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: ipa
-          path: ./ios/build/*.ipa
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Buscar archivos IPA
-        run: |
-          find . -name "*.ipa"        
-        shell: bash
-      - name: Download IPA
-        uses: actions/download-artifact@v2
-        with:
-          name: ipa
-          path: ./ipa
-
-      - name: Install Expo CLI
-        run: npm install -g expo-cli
-
-      - name: Set Apple account credentials
-        run: |
-          echo "EXPO_APPLE_USERNAME=${{ secrets.YOUR_APPLE_ACCOUNT_ID }}" >> $GITHUB_ENV
-          echo "EXPO_APPLE_PASSWORD=${{ secrets.YOUR_APPLE_ACCOUNT_PASSWORD }}" >> $GITHUB_ENV
-
