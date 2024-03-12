@@ -17,8 +17,8 @@
    
     "ios": {
       "bundleIdentifier": "com.inguz.test",
-      "buildNumber": "1.0.2",
-      "supportsTablet": true,
+      "buildNumber": "1.0.6",
+      "supportsTablet": false,
       "infoPlist": {
         "UIBackgroundModes": ["fetch"],
         "NSCameraUsageDescription": "This app uses the camera for XYZ feature.",
