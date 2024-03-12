@@ -53,8 +53,9 @@ jobs:
       - name: Build IPA
         run: | 
           npm install -g eas-cli
-          #eas build --platform ios --non-interactive
+          # eas build --platform ios --non-interactive
           eas build --platform ios --profile production
+          eas submit -p ios
         env:
           EXPO_APPLE_ID: ${{ secrets.YOUR_APPLE_ACCOUNT_ID }}
           EXPO_APPLE_PASSWORD: ${{ secrets.YOUR_APPLE_ACCOUNT_PASSWORD }}
