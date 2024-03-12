@@ -55,4 +55,7 @@ jobs:
           npm install -g eas-cli
           #eas build --platform ios --non-interactive
           eas build --platform ios --profile production
+        env:
+          EXPO_APPLE_ID: ${{ secrets.YOUR_APPLE_ACCOUNT_ID }}
+          EXPO_APPLE_PASSWORD: ${{ secrets.YOUR_APPLE_ACCOUNT_PASSWORD }}
  
