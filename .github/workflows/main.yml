@@ -54,8 +54,7 @@ jobs:
         run: | 
           npm install -g eas-cli
           eas build --platform ios --non-interactive
+          echo "EXPO_APPLE_APP_SPECIFIC_PASSWORD=${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}" >> $GITHUB_ENV
           eas submit -p ios --latest
-        env:
-          EXPO_APPLE_ID: ${{ secrets.YOUR_APPLE_ACCOUNT_ID }}
-          EXPO_APPLE_PASSWORD: ${{ secrets.YOUR_APPLE_ACCOUNT_PASSWORD }}
+      
  
